@@ -1,0 +1,24 @@
+[
+    {
+        "title": "Category 1",
+        "subreports": [
+            {
+                "name": "Report 1"
+            },
+            {
+                "name": "Report 2"
+            }
+        ]
+    },
+    {
+        "title": "Category 2",
+        "subreports": [
+            {
+                "name": "Report 1"
+            },
+            {
+                "name": "Report 2"
+            }
+        ]
+    }
+]
