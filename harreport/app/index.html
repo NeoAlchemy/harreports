@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app=HarReports>
 	<head>
 		<title>HAR Reports</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,15 @@
 		<link href="css/app.css" rel="stylesheet">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+		
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/services.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/filters.js"></script>
+		<script src="js/directives.js"></script>
 	</head>
-	<body ng-controller="HarReportsCtrl">
+	<body ng-controller="harReportsCtrl">
 		<div class="container-fluid">
 		    <div class="row-fluid">
 				<div class="span12">
@@ -22,14 +29,13 @@
 				<div class="span2">
 					<div class="row-fluid">
 						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="Search">
+							<input type="text" class="search-query" placeholder="Search" ng-model="query">
 						</form>
 					</div>
 					<div class="row-fluid">
-						<ul id="report-list" class="nav nav-list">
-							<li><i class="icon-minus"></i><strong>Category 1</strong></li>
-							<li class="active"><a href="#">Report 1</a></li>
-							<li><a href="#">Report 2</a></li>
+						<ul id="report-list" class="nav nav-list" ng-repeat="report in reports">
+							<li><i class="icon-minus"></i><strong>{{report.title}}</strong></li>
+							<li ng-repeat="subreport in report.subreports | filter:query"><a href="#">{{subreport.name}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -57,11 +63,6 @@
 				</div>
 			</div>
 		</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-		<script src="js/app.js"></script>
-		<script src="js/services.js"></script>
-		<script src="js/controllers.js"></script>
-		<script src="js/filters.js"></script>
-		<script src="js/directives.js"></script>
+		
 	</body>
 </html>
