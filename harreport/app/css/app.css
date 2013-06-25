@@ -1,0 +1,12 @@
+#report-list > li > a {
+	padding-left: 30px !important;
+}
+
+#report-list {
+	margin-top: 15px;
+}
+
+.close {
+	margin-top: 6px;
+	margin-right: 10px;
+}
