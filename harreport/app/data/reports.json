@@ -3,10 +3,12 @@
         "title": "Category 1",
         "subreports": [
             {
-                "name": "Report 1"
+                "name": "Report 1",
+                "view": "#/cat1report1"
             },
             {
-                "name": "Report 2"
+                "name": "Report 2",
+                "view": "#/cat1report2"
             }
         ]
     },
@@ -14,10 +16,12 @@
         "title": "Category 2",
         "subreports": [
             {
-                "name": "Report 1"
+                "name": "Report 1",
+                "view": "#/cat2report1"
             },
             {
-                "name": "Report 2"
+                "name": "Report 2",
+                "view": "#/cat2report2"
             }
         ]
     }

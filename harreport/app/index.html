@@ -35,30 +35,37 @@
 					<div class="row-fluid">
 						<ul id="report-list" class="nav nav-list" ng-repeat="report in reports">
 							<li><i class="icon-minus"></i><strong>{{report.title}}</strong></li>
-							<li ng-repeat="subreport in report.subreports | filter:query"><a href="#">{{subreport.name}}</a></li>
+							<li ng-repeat="subreport in report.subreports | filter:query"><a href="{{subreport.view}}">{{subreport.name}}</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="span7"></div>
-				<div class="span3">
+				<div class="span7" ng-view></div>
+				<div class="span3" ng-controller="fileManagerCtrl">
 					<div class="hero-unit">
 						<p>Drag files here to upload or upload through button</p>
 						<p>
-							<a class="btn btn-primary btn-large">
-								Select a file to upload
+							<a href="#" class="btn btn-primary btn-large fileinput-button">
+								<span>Select a file to upload</span>
+								<input type="file" name="file" data-url="upload" upload multiple />
 							</a>
 						</p>
 					</div>
 					<div>
-						<form class="form-inline">
-							<button class="close pull-left">&times;</button>
-							<label class="lead pull-left">filename.har</label>
-							
-						    <div class="btn-group pull-right">
-								<button class="btn btn-primary">On</button>
-								<button class="btn btn-inverse">Off</button>
+						<span class="lead" ng-show="!files.length">No files selected</span>
+						<div ng-repeat="file in files" class="file-list">
+							<form class="form-inline">
+								<button class="close pull-left">&times;</button>
+								<label class="lead pull-left">{{file}}</label>
+								
+							    <div class="btn-group pull-right">
+									<button class="btn btn-primary">On</button>
+									<button class="btn btn-inverse">Off</button>
+								</div>
+							</form>
+							<div class="progress" ng-show="percentage">
+								<div class="bar" style="width: {{percentage}}%;"></div>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
