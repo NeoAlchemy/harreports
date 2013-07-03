@@ -8,7 +8,7 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 		
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/services.js"></script>
 		<script src="js/controllers.js"></script>
@@ -44,26 +44,26 @@
 					<div class="hero-unit">
 						<p>Drag files here to upload or upload through button</p>
 						<p>
-							<a href="#" class="btn btn-primary btn-large fileinput-button">
+							<div class="btn btn-primary btn-large fileinput-button">
 								<span>Select a file to upload</span>
-								<input type="file" name="file" data-url="upload" upload multiple />
-							</a>
+								<input type="file" name="file" upload multiple />
+							</div>
 						</p>
 					</div>
 					<div>
 						<span class="lead" ng-show="!files.length">No files selected</span>
 						<div ng-repeat="file in files" class="file-list">
-							<form class="form-inline">
-								<button class="close pull-left">&times;</button>
-								<label class="lead pull-left">{{file}}</label>
+							<form class="form-inline clearfix">
+								<button class="close pull-left" ng-click="close(file.id)">&times;</button>
+								<label class="lead pull-left">{{file.name}}</label>
 								
-							    <div class="btn-group pull-right">
-									<button class="btn btn-primary">On</button>
-									<button class="btn btn-inverse">Off</button>
+							    <div class="btn-group pull-right" ng-click="enabled($event, file.id)">
+									<button id="file-enabled" ng-class="{'btn-primary': file.enabled}" class="btn">On</button>
+									<button id="file-disabled" ng-class="{'btn-primary': !file.enabled}" class="btn">Off</button>
 								</div>
 							</form>
-							<div class="progress" ng-show="percentage">
-								<div class="bar" style="width: {{percentage}}%;"></div>
+							<div class="progress progress-striped active" ng-show="file.percentage">
+								<div class="bar" style="width: {{file.percentage}}%;"></div>
 							</div>
 						</div>
 					</div>

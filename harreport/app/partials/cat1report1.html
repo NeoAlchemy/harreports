@@ -1,1 +1,6 @@
-<p>Category 1 Report 1</p>
+<div ng-controller="reportsCtrl">
+	<p>Category 1 Report 1</p>
+	<div ng-repeat="file in files">
+		{{file.name}}
+	</div>
+</div>
