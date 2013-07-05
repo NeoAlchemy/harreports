@@ -8,6 +8,7 @@
 angular.module('HarReports.services', []).
 factory('fileManager', function ($rootScope, $http) {
     var _files = {};
+    var _disabledFiles = {};
     
     var getKey = function (file) {
     	return file.lastModifiedDate.getTime();
@@ -22,7 +23,7 @@ factory('fileManager', function ($rootScope, $http) {
         upload: function (file) {
         	var key = getKey(file);
         	if ( ! _files[key] ) {
-        		_files[key] = {file : file};
+        		_files[key] = {file : file, available: true};
         	}
             $rootScope.$broadcast('fileAdded', { id: key, name: file.name, percentage: 100, enabled: true}); //set to 100 due to no upload yet
         	$http({
@@ -52,8 +53,19 @@ factory('fileManager', function ($rootScope, $http) {
             
             
         },
+        setFileAvailablity: function(id, available) {
+        	if (available) {
+        		if (_disabledFiles[id]) _files[id] = _disabledFiles[id];
+        	} else {
+        		_disabledFiles[id] = _files[id];
+        		_files[id] = null;
+        	}
+        },
         clear: function () {
             _files = [];
+        },
+        clearFile: function(id) {
+        	_files[id] = null;
         },
         files: function () {
             return _files;

@@ -21,6 +21,7 @@ controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function (
     	for (var i=0; i<$scope.files.length; i++) {
     		if ($scope.files[i].id == id) {
     			$scope.files.splice(i, 1);
+    			fileManager.clearFile(id);
     		}
     	}
     };
@@ -30,7 +31,9 @@ controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function (
     $scope.enabled = function(event, id) {
 		for (var i=0; i<$scope.files.length; i++) {
     		if ($scope.files[i].id == id) {
-    			$scope.files[i].enabled = (event.target.id ==  "file-enabled");
+    			var isEnabled = (event.target.id ==  "file-enabled");
+    			$scope.files[i].enabled = isEnabled;
+    			fileManager.setFileAvailablity(id, isEnabled);
     		}
     	}
     };

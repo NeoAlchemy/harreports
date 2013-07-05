@@ -2,4 +2,4 @@
 
 /* Filters */
 
-angular.module('HarReports.filters', [])
+angular.module('HarReports.filters', []);
