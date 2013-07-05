@@ -13,12 +13,18 @@ factory('fileManager', function ($rootScope, $http) {
     	return file.lastModifiedDate.getTime();
     };
     
+    var setProgress = function (percentage, key) {
+    	_files[key].percentage = percentage;
+        $rootScope.$broadcast('uploadProgress', {id: key, name: _files[key].file.name, percentage: percentage, enabled: true});
+    };
+    
     return {
         upload: function (file) {
         	var key = getKey(file);
-            _files[key] = file;
-            var fileManager = this;
-            this.setProgress(100, file);
+        	if ( ! _files[key] ) {
+        		_files[key] = {file : file};
+        	}
+            $rootScope.$broadcast('fileAdded', { id: key, name: file.name, percentage: 100, enabled: true}); //set to 100 due to no upload yet
         	$http({
                 method: 'POST',
                 url: "readHar.php",
@@ -34,8 +40,7 @@ factory('fileManager', function ($rootScope, $http) {
             	//TODO handle multiple files
             	var key = getKey(config.data.file);
             	_files[key].data = data;
-            	_files[key].progress = 0;
-            	$rootScope.$broadcast('uploadProgress', {id: key, name: config.data.file.name, percentage: 0, enabled: true});
+            	setProgress(0, key);
             	$rootScope.$broadcast('fullData', {id: key, name: config.data.file.name, data: data});
             	
             }).
@@ -45,23 +50,13 @@ factory('fileManager', function ($rootScope, $http) {
             	$rootScope.$broadcast('uploadError', "unable to load file");
             });
             
-            $rootScope.$broadcast('fileAdded', { id: key, name: file.name, percentage: 0, enabled: true});
+            
         },
         clear: function () {
             _files = [];
         },
         files: function () {
             return _files;
-        },
-        setData: function(file, data) {
-        	var key = getKey(file);
-        	_files[key].data = data;
-        	$rootScope.$broadcast('fullData', {id: key, name: file.name, data: data});
-        },
-        setProgress: function (percentage, file) {
-        	var key = getKey(file);
-        	_files[key].percentage = percentage;
-            $rootScope.$broadcast('uploadProgress', {id: key, name: file.name, percentage: percentage, enabled: true});
         }
     };
 });
