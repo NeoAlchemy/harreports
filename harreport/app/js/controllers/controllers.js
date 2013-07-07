@@ -3,13 +3,15 @@
 /* Controllers */
 
 
-angular.module('HarReports.controllers', []).
-controller('harReportsCtrl', ['$scope', '$http', function($scope, $http) {
+var HarReportsController = angular.module('HarReports.controllers', []);
+
+HarReportsController.controller('harReportsCtrl', ['$scope', '$http', function($scope, $http) {
 	$http.get('data/reports.json').success(function(data) {
 		$scope.reports = data;
 	});
-}]).
-controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function ($scope, $rootScope, fileManager) {
+}]);
+
+HarReportsController.controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function ($scope, $rootScope, fileManager) {
 	$scope.files = [];
     
     $scope.upload = function () {
@@ -51,7 +53,7 @@ controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function (
     $rootScope.$on('fileAdded', function (e, call) {
         if ( _findIndex(call) == -1 ) {
         	$scope.files.push(call);
-            $scope.$apply();
+        	$scope.$$phase || $scope.$apply();
         }
     });
 
@@ -59,7 +61,7 @@ controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function (
     	var index = _findIndex(call);
     	if (index != -1 ) {
     		$scope.files[index] = call;
-    		$scope.$apply();
+    		$scope.$$phase || $scope.$apply();
     	}
     });
     
@@ -67,10 +69,18 @@ controller('fileManagerCtrl', ['$scope', '$rootScope', 'fileManager', function (
     	var index = _findIndex(call);
     	if (index != -1 ) {
     		$scope.files[index].data = call.data;
-    		$scope.$apply();
+    		$scope.$$phase || $scope.$apply();
     	}
     });
-}]).
-controller('reportsCtrl', ['$scope', 'fileManager', function($scope, fileManager) {
+}]);
+
+HarReportsController.controller('reportsCtrl', ['$scope', 'fileManager', function($scope, fileManager) {
 	$scope.files = fileManager.files();
+}]);
+
+HarReportsController.controller('reportListCtrl', ['$scope', '$filter', function($scope, $filter) {
+	$scope.isCategoryEmpty = function(subReportLists) {
+		var filteredResults = $filter('filter')(subReportLists, this.query);
+		return filteredResults.length == 0;
+	};
 }]);
