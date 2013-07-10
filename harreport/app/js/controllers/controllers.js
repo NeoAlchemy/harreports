@@ -76,6 +76,17 @@ HarReportsController.controller('fileManagerCtrl', ['$scope', '$rootScope', 'fil
 
 HarReportsController.controller('reportsCtrl', ['$scope', 'fileManager', function($scope, fileManager) {
 	$scope.files = fileManager.files();
+	
+	
+	$scope.$watch('files', function(files) {
+		$scope.harList = [];
+		for (var fileKey in files) {
+			var fileObj = files[fileKey];
+			if (fileObj) $scope.harList.push(fileObj.data);
+		}
+	}, true);
+	
+	
 }]);
 
 HarReportsController.controller('reportListCtrl', ['$scope', '$filter', function($scope, $filter) {
