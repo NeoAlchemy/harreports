@@ -1,28 +1,83 @@
 [
     {
-        "title": "Category 1",
+        "title": "Page Load",
         "subreports": [
             {
-                "name": "Report 1",
-                "view": "#/cat1report1"
+                "name": "Page Response Time, Bytes, and Request",
+                "view": "#/pageLoad-pageResponseTimeBytesAndRequest"
             },
             {
-                "name": "Report 2",
-                "view": "#/cat1report2"
+                "name": "4xx/5xx Error Report",
+                "view": "#/pageLoad-4xx5xxErrorReport"
             }
         ]
     },
     {
-        "title": "Category 2",
+        "title": "Content Breakdown Charts",
         "subreports": [
             {
-                "name": "Report 1",
-                "view": "#/cat2report1"
+                "name": "Total Bytes per content",
+                "view": "#/contentBreakdown-totalBytesPerContent"
             },
             {
-                "name": "Report 2",
-                "view": "#/cat2report2"
+                "name": "Total Requests per content",
+                "view": "#/contentBreakdown-totalRequestPerContent"
+            },
+            {
+                "name": "Total Response Time per content",
+                "view": "#/contentBreakdown-totalResponseTimePerContent"
             }
         ]
-    }
+    },
+    {
+        "title": "Image Charts",
+        "subreports": [
+            {
+                "name": "Total Bytes per image type",
+                "view": "#/imageCharts-totalBytesPerImageType"
+            },
+            {
+                "name": "Total Requests per image type",
+                "view": "#/imageCharts-totalRequestsPerImageType"
+            },
+            {
+                "name": "Total Response Time per image type",
+                "view": "#/imageCharts-totalResposeTimePerImageType"
+            }
+        ]
+    },
+    {
+        "title": "Ajax Charts",
+        "subreports": [
+            {
+                "name": "Total Bytes per ajax content type",
+                "view": "#/ajaxCharts-totalBytes"
+            },
+            {
+                "name": "Total Requests per ajax content type",
+                "view": "#/ajaxCharts-totalRequests"
+            },
+            {
+                "name": "Total Response Time per ajax content type",
+                "view": "#/ajaxCharts-totalResponseTime"
+            }
+        ]
+    },
+    {
+        "title": "Top Content",
+        "subreports": [
+            {
+                "name": "Largest Requested StyleSheets Files",
+                "view": "#/topContent-largestRequestedStyleSheetsFile"
+            },
+            {
+                "name": "Largest Requested JavaScript Files",
+                "view": "#/topContent-largestRequestedJavaScriptFiles"
+            },
+            {
+                "name": "Largest Requested HTML Files",
+                "view": "#/topContent-largestRequestedHTMLFiles"
+            }
+        ]
+    }	
 ]
