@@ -4,11 +4,11 @@
         "subreports": [
             {
                 "name": "Page Response Time, Bytes, and Request",
-                "view": "#/pageLoad-pageResponseTimeBytesAndRequest"
+                "view": "#/pageLoad/pageResponseTimeBytesAndRequest"
             },
             {
                 "name": "4xx/5xx Error Report",
-                "view": "#/pageLoad-4xx5xxErrorReport"
+                "view": "#/pageLoad/4xx5xxErrorReport"
             }
         ]
     },

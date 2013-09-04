@@ -1,5 +1,5 @@
 define(['controllers/controllers', 'services/harAdapterListFactory'], function(controllers, HarAdapterList) {
-	controllers.controller('pageLoad-pageResponseTimeBytesAndRequestCtrl', ['$scope', 'HarAdapterList', function($scope, HarAdapterList) {
+	controllers.controller('pageResponseTimeBytesAndRequestCtrl', ['$scope', 'HarAdapterList', function($scope, HarAdapterList) {
 		$scope.$watch('harList', function(newValue, oldValue) {
 			$scope.averageTime = HarAdapterList($scope.harList).getTotalRequestTime("AVG");
 			 var data = google.visualization.arrayToDataTable([

@@ -7,5 +7,8 @@ define([
     ], function(angular, filters, services, directives, controllers) {
 		'use strict';
 
-		return angular.module('HarReports', ['HarReports.filters', 'HarReports.services', 'HarReports.directives', 'HarReports.controllers']);
+		return angular.module('HarReports', ['HarReports.filters', 
+		                                     'HarReports.services', 
+		                                     'HarReports.directives', 
+		                                     'HarReports.controllers']);
 });
