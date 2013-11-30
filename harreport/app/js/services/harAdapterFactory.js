@@ -18,6 +18,25 @@ define(['angular', 'services/services'], function(angular, services) {
 				return endTime;
 	        };
 	        
+	        var _getContentBreakdownObjectOfEntries = function() {
+	        	var contentBreakdown = {};
+	        	var entries = harObject.log.entries;
+	        	for (var i=0; i<entries.length; i++) {
+					var entry = entries[i];
+					try {
+						var contentType = entry.response.content.mimeType;
+						if (!contentBreakdown[contentType]) contentBreakdown[contentType] = [];
+						contentBreakdown[contentType].push(entry);
+						
+					} catch (e) {
+						if (!contentBreakdown["unknown"]) contentBreakdown["unknown"] = [];
+						contentBreakdown.push(entry);
+					}
+				}
+	        	
+	        	return contentBreakdown;
+	        };
+	        
 	        
 	        /**
 	         * Public methods
@@ -25,6 +44,27 @@ define(['angular', 'services/services'], function(angular, services) {
 			return {
 				getTotalRequestTime: function() {
 					return _getLastRequestFinalTime() - _initialStartTime;
+				},
+				
+				getListOfContentTypes: function() {
+					var listOfContentTypes = [];
+					angular.forEach(_getContentBreakdownObjectOfEntries(), function(value, key){
+						this.push(key);
+					}, listOfContentTypes);
+					return listOfContentTypes;
+				},
+				
+				getTotalBytesPerContent: function(contentType) {
+					var listOfContentType = _getContentBreakdownObjectOfEntries()[contentType];
+					var totalBytes = 0;
+					for (var i=0;i<listOfContentType.length;i++) {
+						var totalBytes =+ listOfContentType[i].response.content.size;
+					}
+					return totalBytes;
+				},
+				
+				getTotalRequestsPerContent: function(contentType) {
+					return _getContentBreakdownObjectOfEntries()[contentType].length;
 				}
 			}
 	    };

@@ -17,11 +17,11 @@
         "subreports": [
             {
                 "name": "Total Bytes per content",
-                "view": "#/contentBreakdown-totalBytesPerContent"
+                "view": "#/contentBreakdown/totalBytesPerContent"
             },
             {
                 "name": "Total Requests per content",
-                "view": "#/contentBreakdown-totalRequestPerContent"
+                "view": "#/contentBreakdown/totalRequestsPerContent"
             },
             {
                 "name": "Total Response Time per content",
