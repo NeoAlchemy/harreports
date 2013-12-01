@@ -1,15 +1,15 @@
 define(['controllers/controllers', 'services/harAdapterListFactory'], function(controllers, HarAdapterList) {
-	controllers.controller('totalBytesPerContentCtrl', ['$scope', 'HarAdapterList', function($scope, HarAdapterList) {
+	controllers.controller('totalBytesPerAjaxContentCtrl', ['$scope', 'HarAdapterList', function($scope, HarAdapterList) {
 		$scope.$watch('harList', function(newValue, oldValue) {
 			var visualizationData = [];
 			visualizationData.push([ 'content', 'total bytes' ]);
 
-			var contentTypeList = HarAdapterList($scope.harList).getContentList();
+			var contentTypeList = HarAdapterList($scope.harList).getAjaxContentList();
 			for ( var i = 0; i < contentTypeList.length; i++) {
 				var contentType = contentTypeList[i];
 				visualizationData.push([
 					contentType,
-					 HarAdapterList($scope.harList).getTotalBytesPerContent("AVG", contentType) 
+					 HarAdapterList($scope.harList).getTotalBytesPerAjaxContent("AVG", contentType) 
 				]);
 			}
 

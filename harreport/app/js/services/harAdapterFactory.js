@@ -18,19 +18,22 @@ define(['angular', 'services/services'], function(angular, services) {
 				return endTime;
 	        };
 	        
-	        var _getContentBreakdownObjectOfEntries = function() {
+	        var _getContentBreakdownObjectOfEntries = function(filter) {
+	        	var filter = filter || function() { return true; };
 	        	var contentBreakdown = {};
 	        	var entries = harObject.log.entries;
 	        	for (var i=0; i<entries.length; i++) {
 					var entry = entries[i];
-					try {
-						var contentType = entry.response.content.mimeType;
-						if (!contentBreakdown[contentType]) contentBreakdown[contentType] = [];
-						contentBreakdown[contentType].push(entry);
-						
-					} catch (e) {
-						if (!contentBreakdown["unknown"]) contentBreakdown["unknown"] = [];
-						contentBreakdown.push(entry);
+					if (filter && filter.call(this, entry)) {	
+						try {
+							var contentType = entry.response.content.mimeType;
+							if (!contentBreakdown[contentType]) contentBreakdown[contentType] = [];
+							contentBreakdown[contentType].push(entry);
+							
+						} catch (e) {
+							if (!contentBreakdown["unknown"]) contentBreakdown["unknown"] = [];
+							contentBreakdown.push(entry);
+						}
 					}
 				}
 	        	
@@ -54,17 +57,88 @@ define(['angular', 'services/services'], function(angular, services) {
 					return listOfContentTypes;
 				},
 				
+				getListOfAjaxContentTypes: function() {
+					var filterByAjaxRequests = function(entry) {
+						try {
+							var headerJSON = angular.toJson(entry.request.headers);
+							return (headerJSON.indexOf("XMLHttpRequest") > -1);
+						} catch (ex) {
+							return false;
+						}
+					};
+					var listOfContentTypes = [];
+					angular.forEach(_getContentBreakdownObjectOfEntries(filterByAjaxRequests), function(value, key){
+						this.push(key);
+					}, listOfContentTypes);
+					return listOfContentTypes;
+				},
+				
 				getTotalBytesPerContent: function(contentType) {
 					var listOfContentType = _getContentBreakdownObjectOfEntries()[contentType];
 					var totalBytes = 0;
 					for (var i=0;i<listOfContentType.length;i++) {
-						var totalBytes =+ listOfContentType[i].response.content.size;
+						totalBytes += listOfContentType[i].response.content.size;
 					}
 					return totalBytes;
 				},
 				
+				getTotalResponseTimePerContent: function(contentType) {
+					var listOfContentType = _getContentBreakdownObjectOfEntries()[contentType];
+					var totalResponseTime = 0;
+					for (var i=0;i<listOfContentType.length;i++) {
+						totalResponseTime += listOfContentType[i].time;
+					}
+					return totalResponseTime;
+				},
+				
 				getTotalRequestsPerContent: function(contentType) {
 					return _getContentBreakdownObjectOfEntries()[contentType].length;
+				},
+				
+				getTotalBytesPerAjaxContent: function(contentType) {
+					var filterByAjaxRequests = function(entry) {
+						try {
+							var headerJSON = angular.toJson(entry.request.headers);
+							return (headerJSON.indexOf("XMLHttpRequest") > -1);
+						} catch (ex) {
+							return false;
+						}
+					};
+					var listOfContentType = _getContentBreakdownObjectOfEntries(filterByAjaxRequests)[contentType];
+					var totalBytes = 0;
+					for (var i=0;i<listOfContentType.length;i++) {
+						totalBytes += listOfContentType[i].response.content.size;
+					}
+					return totalBytes;
+				},
+				
+				getTotalResponseTimePerAjaxContent: function(contentType) {
+					var filterByAjaxRequests = function(entry) {
+						try {
+							var headerJSON = angular.toJson(entry.request.headers);
+							return (headerJSON.indexOf("XMLHttpRequest") > -1);
+						} catch (ex) {
+							return false;
+						}
+					};
+					var listOfContentType = _getContentBreakdownObjectOfEntries(filterByAjaxRequests)[contentType];
+					var totalResponseTime = 0;
+					for (var i=0;i<listOfContentType.length;i++) {
+						totalResponseTime += listOfContentType[i].time;
+					}
+					return totalResponseTime;
+				},
+				
+				getTotalRequestsPerAjaxContent: function(contentType) {
+					var filterByAjaxRequests = function(entry) {
+						try {
+							var headerJSON = angular.toJson(entry.request.headers);
+							return (headerJSON.indexOf("XMLHttpRequest") > -1);
+						} catch (ex) {
+							return false;
+						}
+					};
+					return _getContentBreakdownObjectOfEntries(filterByAjaxRequests)[contentType].length;
 				}
 			}
 	    };

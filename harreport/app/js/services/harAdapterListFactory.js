@@ -45,6 +45,18 @@ define(['angular', 'services/services', 'services/harAdapterFactory'], function(
 					}
 					return contentList;
 				},
+				
+				getAjaxContentList: function() {
+					var contentList = [];
+					for (var i=0; i<harAdapterList.length; i++) {
+						var currentContentTypeList = harAdapterList[i].getListOfAjaxContentTypes();
+						for (var j=0; j<currentContentTypeList.length; j++) {
+							var contentType = currentContentTypeList[j];
+							if (contentList.toString().indexOf(contentType) == -1) contentList.push(contentType);
+						};
+					}
+					return contentList;
+				},
 			
 				getTotalBytesPerContent: function(calculationType, contentType) {
 					var allTotalBytesPerContent = [];
@@ -54,10 +66,42 @@ define(['angular', 'services/services', 'services/harAdapterFactory'], function(
 					return _calculate(allTotalBytesPerContent, calculationType);
 				},
 				
+				getTotalResponseTimePerContent: function(calculationType, contentType) {
+					var allTotalResponseTimePerContent = [];
+					for (var i=0;i<harAdapterList.length;i++) {
+						allTotalResponseTimePerContent.push(harAdapterList[i].getTotalResponseTimePerContent(contentType));
+					}
+					return _calculate(allTotalResponseTimePerContent, calculationType);
+				},
+				
 				getTotalRequestsPerContent: function(calculationType, contentType) {
 					var allTotalRequestsPerContent = [];
 					for (var i=0;i<harAdapterList.length;i++) {
 						allTotalRequestsPerContent.push(harAdapterList[i].getTotalRequestsPerContent(contentType));
+					}
+					return _calculate(allTotalRequestsPerContent, calculationType);
+				},
+				
+				getTotalBytesPerAjaxContent: function(calculationType, contentType) {
+					var allTotalBytesPerContent = [];
+					for (var i=0;i<harAdapterList.length;i++) {
+						allTotalBytesPerContent.push(harAdapterList[i].getTotalBytesPerAjaxContent(contentType));
+					}
+					return _calculate(allTotalBytesPerContent, calculationType);
+				},
+				
+				getTotalResponseTimePerAjaxContent: function(calculationType, contentType) {
+					var allTotalResponseTimePerContent = [];
+					for (var i=0;i<harAdapterList.length;i++) {
+						allTotalResponseTimePerContent.push(harAdapterList[i].getTotalResponseTimePerAjaxContent(contentType));
+					}
+					return _calculate(allTotalResponseTimePerContent, calculationType);
+				},
+				
+				getTotalRequestsPerAjaxContent: function(calculationType, contentType) {
+					var allTotalRequestsPerContent = [];
+					for (var i=0;i<harAdapterList.length;i++) {
+						allTotalRequestsPerContent.push(harAdapterList[i].getTotalRequestsPerAjaxContent(contentType));
 					}
 					return _calculate(allTotalRequestsPerContent, calculationType);
 				}

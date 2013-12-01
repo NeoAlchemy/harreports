@@ -25,24 +25,7 @@
             },
             {
                 "name": "Total Response Time per content",
-                "view": "#/contentBreakdown-totalResponseTimePerContent"
-            }
-        ]
-    },
-    {
-        "title": "Image Charts",
-        "subreports": [
-            {
-                "name": "Total Bytes per image type",
-                "view": "#/imageCharts-totalBytesPerImageType"
-            },
-            {
-                "name": "Total Requests per image type",
-                "view": "#/imageCharts-totalRequestsPerImageType"
-            },
-            {
-                "name": "Total Response Time per image type",
-                "view": "#/imageCharts-totalResposeTimePerImageType"
+                "view": "#/contentBreakdown/totalResponseTimePerContent"
             }
         ]
     },
@@ -51,33 +34,16 @@
         "subreports": [
             {
                 "name": "Total Bytes per ajax content type",
-                "view": "#/ajaxCharts-totalBytes"
+                "view": "#/ajaxCharts/totalBytesPerAjaxContent"
             },
             {
                 "name": "Total Requests per ajax content type",
-                "view": "#/ajaxCharts-totalRequests"
+                "view": "#/ajaxCharts/totalRequestsPerAjaxContent"
             },
             {
                 "name": "Total Response Time per ajax content type",
-                "view": "#/ajaxCharts-totalResponseTime"
+                "view": "#/ajaxCharts/totalResponseTimePerAjaxContent"
             }
         ]
-    },
-    {
-        "title": "Top Content",
-        "subreports": [
-            {
-                "name": "Largest Requested StyleSheets Files",
-                "view": "#/topContent-largestRequestedStyleSheetsFile"
-            },
-            {
-                "name": "Largest Requested JavaScript Files",
-                "view": "#/topContent-largestRequestedJavaScriptFiles"
-            },
-            {
-                "name": "Largest Requested HTML Files",
-                "view": "#/topContent-largestRequestedHTMLFiles"
-            }
-        ]
-    }	
+    }
 ]
