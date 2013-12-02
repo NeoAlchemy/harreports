@@ -7,15 +7,17 @@
 		<link href="css/app.css" rel="stylesheet">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-		<script data-main="js/main" src="js/lib/require/require.js"></script>
-		
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script>
+            google.load('visualization', '1.0', {packages:['corechart']});
+        </script>
 	</head>
 	<body ng-controller="harReportsCtrl">
 		<div class="container-fluid">
 		    <div class="row-fluid">
 				<div class="span12">
 					<div class="page-header">
-						<h1>HAR Reports</h1>
+						<h1>HAR Reports!!</h1>
 						<p>Drag and Drop a HAR file and select different reports to learn more about your performance results</p>
 					</div>
 				</div>
@@ -65,6 +67,7 @@
 				</div>
 			</div>
 		</div>
-		
+        <!-- <script data-main="js/config" src="js/lib/require/require.min.js"></script> -->
+        <script src="js/optimized.js"></script>
 	</body>
 </html>

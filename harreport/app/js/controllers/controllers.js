@@ -1,4 +1,4 @@
-define(['angular', 'services/fileManagerFactory', 'goog!visualization,1,packages:[corechart]'], function(angular, fileManager) {
+define(['angular', 'services/fileManagerFactory'], function(angular, fileManager) {
 	
 	'use strict';
 

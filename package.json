@@ -1,0 +1,27 @@
+{
+  "name": "harreports.com",
+  "version": "0.3.0",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "~1.2.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NeoAlchemy/harreports.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NeoAlchemy/harreports/issues"
+  },
+  "scripts": {
+      "compile": "grunt requirejs"
+  },
+  "private": true,
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-requirejs": "~0.4.1"
+  }
+}
